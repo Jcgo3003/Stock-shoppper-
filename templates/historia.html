@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+
+    <table class="table">
+            <th>Transaction ID</th>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Date</th>
+        {% for listas in tabla %}
+            <tr>
+                {% for cosas in listas %}
+                <th>
+                    {{ listas[cosas] }}
+                </th>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+<!--Aqui se necesita agregar a price un simbolo de $ para que tenga mas detalles como debe ser-->
+<!--Creo que en vez de modificar este Html lo mejor sera insertar "$" desde el comienzo-->

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">    <!-- Idioma -->
+
+    <head>
+
+        <!-- Required meta tags - En verdad seran requeridas   -->
+        <meta charset="utf-8"/> <!-- Ni idea para que es esto sera para que la letra sea de 8 -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <!-- Aqui esta configurando esto para que se adapte a cualquier dispositivo -->
+
+        <!-- documentation at http://getbootstrap.com/docs/4.0/, alternative themes at https://bootswatch.com/4-alpha/
+        No se porque hace esto, esta poniendo un link directamente?, o solo es para llamar a bootstrap?-->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="/static/styles.css" rel="stylesheet"/> <!-- Llama a stilos en static -->
+
+        <!-- Aqui estan los scrips con los que funcionara -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+
+        <title>JBST Finance: {% block title %}{% endblock %}</title> <!-- titulo -->
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-md navbar-light bg-light border"> <!-- Elige la barra que estara hasta arriva -->
+            <a class="navbar-brand" href="/"><span class="blue">C</span><span class="red">$</span><span class="yellow">5</span><span class="green">0</span> <span class="red">Finance</span></a>
+            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                {% if session.user_id %}
+                    <ul class="navbar-nav mr-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/quote">Quote</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/buy">Buy</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/sell">Sell</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/history">History</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/cha_pass">Change Password</a></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                    </ul>
+                {% else %}
+                    <ul class="navbar-nav ml-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </nav>
+
+        <!-- Definio toda la barra de navegacion y la manera en que se despliega -->
+
+        {% if get_flashed_messages() %} <!-- mezcla jinja con html todo raro -->s
+            <header>
+                <div class="alert alert-primary border text-center" role="alert"> <!-- crea una clase con ese nombre tan largo con el proposito de alerta ?? -->
+                    {{ get_flashed_messages() | join(" ") }} <!-- obtener mensages flasheados -->
+                </div>
+            </header>
+        {% endif %}
+
+        <main class="container p-5">  <!-- Contenedor p-5 - este es un estilo, Este es el main, inside of which templates dentro de los que va ir apologies.html y login.html -->
+            {% block main %}{% endblock %}
+        </main>
+<!--includes Flask’s message flashing-->
+        <footer class="small text-center text-muted">
+            Data provided for free by <a href="https://iextrading.com/developer">IEX</a>. View <a href="https://iextrading.com/api-exhibit-a/">IEX’s Terms of Use</a>.
+        </footer>
+
+    </body>
+
+</html>

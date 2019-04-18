@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    index
+{% endblock %}
+
+{% block main %}
+
+    <table class="table">
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Shares</th>
+            <th>Price</th>
+            <th>Total</th>
+            {% set count = [0] %}
+        {% for a in range(con|length) %}
+            <tr>
+                <th>{{ con[a]['symbol'] }}</th>
+                <th>{{ con[a]['name'] }}</th>
+                <th>{{ con[a]['SUM(shares)'] }}</th>
+                <th>{{ "${:,.2f}".format(price[a]) }}</th>
+                <th>{{ "${:,.2f}".format(con[a]['SUM(shares)'] * price[a]) }}</th>
+                {% if count.append(count.pop() + con[a]['SUM(shares)'] * price[a]) %}{% endif %}
+            </tr>
+        {% endfor %}
+            <tr>
+                <th>{{ "Cash" }}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>{{ "${:,.2f}".format(cash) }}</th>
+            </tr>
+            <tr>
+                <th>{{ "Total" }}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>{{ "${:,.2f}".format(count[0] + cash) }}</th>
+            </tr>
+    </table>
+{% endblock %}
+<!--Incrementando en for loops obtendido de: https://stackoverflow.com/questions/7537439/how-to-increment-a-variable-on-a-for-loop-in-jinja-template/7537466-->
+<!--<th>{{ "${:,.2f}".format(con[a]['SUM(shares)'] * price[a]) }}</th> : https://stackoverflow.com/questions/12078571/jinja-templates-format-a-float-as-comma-separated-currency-->
+<!--Cometi el error de querer agregar '$' a 'price' desde python, como price lo utilizo como una variable todo explota-->

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Success
+{% endblock %}
+
+{% block main %}
+    <p class="form-group"> Success!!! </p>
+    <p class="form-group"> You {{ act }} {{ num_shares }} shares of {{ simbolo }} at {{ precio_com }} each </p>
+    <p class="form-group"> Total: {{ "$%.2f"|format(costo) }}</p>
+    <p class="form-group"> Thanks for your transaction.</p>
+{% endblock %}
